@@ -1,27 +1,34 @@
 const express = require("express");
 const app = express();
-const PORT = 8080;
+const PORT = 3000;
 
-const urlDatabase = {
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
-};
-
+// Add this line to use EJS as the view engine
 app.set("view engine", "ejs");
 
-// Route to render the URLs index page
-app.get("/urls", (req, res) => {
-  const templateVars = { urls: urlDatabase };
-  res.render("urls_index", templateVars);
+// Middleware to parse the request body
+app.use(express.urlencoded({ extended: true }));
+
+// Dummy function to generate a random string
+function generateRandomString() {
+  // Your implementation here
+}
+
+// GET route to render the form
+app.get("/urls/new", (req, res) => {
+  res.render("urls_new");
 });
 
-// Route to render a single URL page
-app.get("/urls/:id", (req, res) => {
-  const templateVars = { id: req.params.id, longURL: urlDatabase[req.params.id] };
-  res.render("urls_show", templateVars);
+// POST route to handle form submission
+app.post("/urls", (req, res) => {
+  console.log(req.body); // Log the POST request body to the console
+
+  // Replace the following with your logic to handle form submission
+  res.send("Ok");
 });
 
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}!`);
+  console.log(`Server listening on port ${PORT}`);
 });
+
 
